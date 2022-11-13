@@ -1,4 +1,6 @@
-package org.example;
+package org.example.model;
+
+import org.example.model.AppUser;
 
 public class Person {
     private int sequence = 10;
@@ -8,6 +10,8 @@ public class Person {
     private String firstName;
     private String lastName;
     private String email;
+
+    private AppUser credentials;
 
     //constructors
     public Person(){
@@ -24,6 +28,16 @@ public class Person {
 
 
     //Getters & Setter
+
+
+    public AppUser getCredentials() {
+        return credentials;
+    }
+
+    public void setCredentials(AppUser credentials) {
+        this.credentials = credentials;
+    }
+
     public int getId() {
         return id;
     }

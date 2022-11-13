@@ -1,6 +1,7 @@
-package org.example;
+package org.example.model;
 
-import java.util.EnumMap;
+import org.example.model.Person;
+import org.example.model.TodoItem;
 
 public class TodoItemTask {
     private int sequence = 1001;
@@ -53,8 +54,9 @@ public class TodoItemTask {
     }
 
     //Methods
-    public String getSummary(){
+    @Override
+    public String toString(){
 
-        return assignee.getSummary();
+        return "assigned: "+assigned;
     }
 }

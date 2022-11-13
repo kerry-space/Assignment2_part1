@@ -1,10 +1,11 @@
-package org.example;
+package org.example.model;
 
 
+import java.lang.Object;
 
+import org.example.model.Person;
 
 import java.time.LocalDate;
-import java.time.Period;
 
 public class TodoItem {
 
@@ -98,10 +99,19 @@ public class TodoItem {
         return false;
     }
 
-    public  String getSummary(){
+    @Override
+    public  String toString(){
 
-        return creator.getSummary();
+        return "id: "+id+" "+"title: "+title+" "+"taskDescription: "+taskDescription+" "+"deadLine: "+deadLine;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
 }
