@@ -3,16 +3,15 @@ package org.example.model;
 
 import java.lang.Object;
 
-import org.example.model.Person;
-
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class TodoItem {
 
-    private int sequence = 100;
+
 
     //Fields
-    private int id;
+    private Integer id;
     private String title;
     private String taskDescription;
     private LocalDate deadLine;
@@ -21,22 +20,24 @@ public class TodoItem {
 
 
     //Constructor
-    public TodoItem(){
-        this.id = sequence++;
-        this.deadLine = LocalDate.of(2023,3,3);
-    }
 
-    public TodoItem(String title, String taskDescription){
-        this();
-        this.title = title;
-        this.taskDescription =taskDescription;
-
+    public TodoItem(String title, String taskDescription, LocalDate deadLine, Person creator) {
+        setTitle(title);
+       setTaskDescription(taskDescription);
+        setDeadLine(deadLine);
+        setCreator(creator);
     }
 
 
     //Getter & Setter
-    public int getId() {
+
+
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -53,7 +54,7 @@ public class TodoItem {
     }
 
     public void setTaskDescription(String taskDescription) {
-
+        if(taskDescription == null) throw new IllegalArgumentException("taskDescription is null");
         this.taskDescription = taskDescription;
     }
 
@@ -62,19 +63,16 @@ public class TodoItem {
     }
 
     public void setDeadLine(LocalDate deadLine) {
-
         if(deadLine == null)  throw new  IllegalArgumentException("deadLine para was null");
-
             this.deadLine = deadLine;
             this.done =true;
-
     }
 
-    public boolean getDone(){
-        return this.done;
+    public boolean getDone() {
+        return done;
     }
+
     public void setDone(boolean done) {
-
         this.done = done;
     }
 
@@ -83,8 +81,11 @@ public class TodoItem {
     }
 
     public void setCreator(Person creator) {
+        if(creator == null) throw new IllegalArgumentException("creator is null");
         this.creator = creator;
     }
+
+
 
 
     //methods
@@ -106,12 +107,15 @@ public class TodoItem {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TodoItem todoItem = (TodoItem) o;
+        return id == todoItem.id && done == todoItem.done && Objects.equals(title, todoItem.title) && Objects.equals(taskDescription, todoItem.taskDescription) && Objects.equals(deadLine, todoItem.deadLine);
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return Objects.hash(id, title, taskDescription, deadLine, done);
     }
 }

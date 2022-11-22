@@ -1,10 +1,9 @@
 package org.example.model;
 
-import org.example.model.Person;
-import org.example.model.TodoItem;
+import java.util.Objects;
 
 public class TodoItemTask {
-    private int sequence = 1001;
+
     //fields
     private int id;
     private boolean assigned;
@@ -12,12 +11,7 @@ public class TodoItemTask {
     private Person assignee;
 
     //Constructor
-    public TodoItemTask(){
 
-        this.id = sequence++;
-
-
-    }
 
 
     //Getter & Setter
@@ -25,11 +19,15 @@ public class TodoItemTask {
         return id;
     }
 
-    public boolean IsAssigned() {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean getAssigned() {
         return assigned;
     }
 
-    public void setAssigned(boolean assigned) {
+    public void setAssigned() {
 
         this.assigned = assigned;
     }
@@ -54,9 +52,27 @@ public class TodoItemTask {
     }
 
     //Methods
-    @Override
-    public String toString(){
 
-        return "assigned: "+assigned;
+
+    @Override
+    public String toString() {
+        return "TodoItemTask{" +
+                "id=" + id +
+                ", assigned=" + assigned +
+                ", todoItem=" + todoItem +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TodoItemTask that = (TodoItemTask) o;
+        return id == that.id && assigned == that.assigned && Objects.equals(todoItem, that.todoItem);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, assigned, todoItem);
     }
 }

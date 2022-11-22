@@ -1,23 +1,42 @@
 package org.example.model;
 
-import org.example.App;
 import  java.lang.Object;
+import java.time.LocalDate;
+import java.util.Objects;
 
 public class AppUser {
     //fields
+    private Integer id;
     private String username;
     private String password;
     private AppRole role;
 
+    private boolean active;
+
+    private LocalDate register;
+
     //Constructor
-    public AppUser(String username, String password, AppRole role){
-        this.username = username;
-        this.password = password;
-        this.role = role;
+    public AppUser(String username, String password, AppRole role, boolean active, LocalDate register) {
+
+     setUsername(username);
+     setPassword(password);
+     setRole(role);
+     setActive(active);
+     setRegister(register);
     }
 
 
     //getters and setters
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        if(id == null) throw new RuntimeException("id was null");
+        this.id = id;
+    }
+
+
     public String getUsername() {
         return username;
     }
@@ -41,16 +60,41 @@ public class AppUser {
     }
 
     public void setRole(AppRole role) {
-        if(role == null ) throw  new IllegalArgumentException("para is empty");
+        if(role == null ) role = AppRole.ROLE_APP_USER;
         this.role = role;
+    }
+
+
+    public boolean getActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public LocalDate getRegister() {
+        return register;
+    }
+
+    public void setRegister(LocalDate register) {
+        if(register == null) throw new IllegalArgumentException("register is null");
+        this.register = register;
     }
 
     //methods
     @Override
-    public boolean equals(Object obj){
-          return this == obj;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AppUser appUser = (AppUser) o;
+        return Objects.equals(username, appUser.username)  && role == appUser.role;
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, role);
+    }
 
     public int hashCode(Object obj){
 
@@ -59,7 +103,12 @@ public class AppUser {
     }
 
     @Override
-    public String toString(){
-        return "username: "+username+" "+getRole();
+    public String toString() {
+        return "AppUser{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", active=" + active +
+                ", register=" + register +
+                '}';
     }
 }

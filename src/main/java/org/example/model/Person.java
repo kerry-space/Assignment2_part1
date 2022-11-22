@@ -1,45 +1,40 @@
 package org.example.model;
 
-import org.example.model.AppUser;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class Person {
-    private int sequence = 10;
+
 
     //Fields
-    private int id;
+    private Integer id;
     private String firstName;
     private String lastName;
     private String email;
-
     private AppUser credentials;
 
-    //constructors
-    public Person(){
+    private List<TodoItem> todoItems;
 
-        this.id = sequence++;
-    }
+    //constructors
+
 
     public Person(String firstName, String lastName, String email){
-        this();
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
+        setFirstName(firstName);
+        setLastName(lastName);
+        setEmail(email);
+        //setTodoItems(assignedTodos);
     }
 
 
     //Getters & Setter
-
-
-    public AppUser getCredentials() {
-        return credentials;
-    }
-
-    public void setCredentials(AppUser credentials) {
-        this.credentials = credentials;
-    }
-
-    public int getId() {
+    public Integer getId() {
         return id;
+    }
+
+    public void setId(Integer id) {
+       if(id == null) throw new RuntimeException("id was null");
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -61,7 +56,7 @@ public class Person {
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public void setEmail(String email) {
@@ -69,9 +64,50 @@ public class Person {
         this.email = email;
     }
 
+    public AppUser getCredentials() {
+        return credentials;
+    }
+
+    public void setCredentials(AppUser credentials) {
+        if(credentials == null) throw new IllegalArgumentException("credentials was null");
+        this.credentials = credentials;
+    }
+
+    public List<TodoItem> getTodoItems() {
+        return todoItems;
+    }
+
+    public void setTodoItems(List<TodoItem> assignedTodos) {
+        //if list is empty instantiate new arrayList
+        if(todoItems == null)  this.todoItems = new ArrayList<>();
+        this.todoItems = todoItems;
+    }
 
     //method
-    public String getSummary(){
-        return "id:"+id+" "+"name:"+firstName+" "+lastName+" "+"email:"+email;
+
+    //equals override method to compare based on your setup.
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return id == person.id && Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName) && Objects.equals(email, person.email);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, email);
+    }
+
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
 }
