@@ -1,22 +1,33 @@
-package org.example.dao;
+package org.example.dao.impl;
 
-import org.example.Sequencer.PersonIdSequencer;
+import org.example.dao.impl.Sequencer.PersonIdSequencer;
+import org.example.dao.PersonDAO;
 import org.example.model.Person;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class PersonDAOCollection implements PersonDAO {
     //field
     List<Person> personList;
 
-    //constructor
-    public PersonDAOCollection(){
+    //Singleton Design Pattern step2: define a static field with class type
+    private static PersonDAOCollection instance;
+
+    //Singleton Design Pattern step1: one private constructor
+    private PersonDAOCollection(){
         //initialing ones call PersonDaoCollection class
         personList = new ArrayList<>();
     }
 
     //Override methods implements interface
+
+    //Singleton Design Pattern step3: define a static method with if condition to check the object is null or not
+    public  static PersonDAOCollection getInstance(){
+        if (instance == null) instance = new PersonDAOCollection();
+        return instance;
+    }
     @Override
     public Person persist(Person person) {
         if(person == null) throw new IllegalArgumentException("person is null");
@@ -26,7 +37,7 @@ public class PersonDAOCollection implements PersonDAO {
     }
 
     @Override
-    public Person findById(int id) {
+    public Person findById(Integer id) {
        if (id == 0) throw new IllegalArgumentException("id is empty");
        for (Person person : personList){
            if(person.getId() == id){
@@ -36,16 +47,20 @@ public class PersonDAOCollection implements PersonDAO {
        return null;
     }
 
+
+
     @Override
-    public Person findByEmail(String email) {
+    public Optional<Person> findByEmail(String email) {
         if (email == null) throw new IllegalArgumentException("email is null");
         for (Person person : personList){
             if(person.getEmail().equalsIgnoreCase(email)){
-                return person;
+                return Optional.of(person);
             }
         }
-        return null;
+        return Optional.empty();
     }
+
+
 
     @Override
     public ArrayList<Person> findAll() {
@@ -54,9 +69,11 @@ public class PersonDAOCollection implements PersonDAO {
         return arrayist;
     }
 
+
+
     @Override
-    public void remove(int id) {
-        if (id == 0) throw new IllegalArgumentException("id is empty");
+    public void remove(Integer id) {
+        if (id == null) throw new IllegalArgumentException("id is empty");
         for (Person person : personList){
             if(person.getId() == id){
                 personList.remove(person);

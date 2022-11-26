@@ -12,6 +12,10 @@ public class TodoItemTask {
 
     //Constructor
 
+    public TodoItemTask(TodoItem todoItem, Person assignee){
+        setTodoItem(todoItem);
+        setAssignee(assignee);
+    }
 
 
     //Getter & Setter

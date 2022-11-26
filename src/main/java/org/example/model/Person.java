@@ -18,12 +18,15 @@ public class Person {
 
     //constructors
 
+    public  Person(){
 
-    public Person(String firstName, String lastName, String email){
+    }
+    public Person(String firstName, String lastName, String email, AppUser credentials){
         setFirstName(firstName);
         setLastName(lastName);
         setEmail(email);
         //setTodoItems(assignedTodos);
+        setCredentials(credentials);
     }
 
 

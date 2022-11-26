@@ -4,11 +4,11 @@ import org.example.model.TodoItemTask;
 
 import java.util.Collection;
 
-public interface TodoItemTaskDAO {
-    TodoItemTask persist(TodoItemTask todoItemTask);
+public interface TodoItemTaskDAO extends BaseDao<TodoItemTask> {
+
     TodoItemTask findById(int id);
-    Collection<TodoItemTask> findAll();
+
     Collection<TodoItemTask> findByAssignedStatus(boolean status);
     Collection<TodoItemTask> findByPersonId(int personId);
-    void remove(int id);
+
 }

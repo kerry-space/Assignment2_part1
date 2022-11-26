@@ -21,11 +21,11 @@ public class TodoItem {
 
     //Constructor
 
-    public TodoItem(String title, String taskDescription, LocalDate deadLine, Person creator) {
+    public TodoItem(String title, String taskDescription, LocalDate deadLine) {
         setTitle(title);
        setTaskDescription(taskDescription);
         setDeadLine(deadLine);
-        setCreator(creator);
+
     }
 
 

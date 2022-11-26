@@ -1,6 +1,7 @@
-package org.example.dao;
+package org.example.dao.impl;
 
-import org.example.Sequencer.TodoItemTaskIdSequencer;
+import org.example.dao.impl.Sequencer.TodoItemTaskIdSequencer;
+import org.example.dao.TodoItemTaskDAO;
 import org.example.model.TodoItemTask;
 
 import java.util.ArrayList;
@@ -11,12 +12,21 @@ public class TodoItemTaskDAOCollection implements TodoItemTaskDAO {
 
     //field
     List<TodoItemTask> todoItemTasksList;
+    private static TodoItemTaskDAOCollection instance;
 
     //constructor
-    public TodoItemTaskDAOCollection(){
+    private TodoItemTaskDAOCollection(){
         //initialing ones call TodoItemTaskCollection class
         todoItemTasksList = new ArrayList<>();
     }
+
+    //getter and setter
+
+    public static TodoItemTaskDAOCollection getInstance(){
+        if(instance == null) instance = new TodoItemTaskDAOCollection();
+        return instance;
+    }
+
     @Override
     public TodoItemTask persist(TodoItemTask todoItemTask) {
         if (todoItemTask == null) throw new IllegalArgumentException("todoItemTask is null");
@@ -37,7 +47,7 @@ public class TodoItemTaskDAOCollection implements TodoItemTaskDAO {
     }
 
     @Override
-    public Collection<TodoItemTask> findAll() {
+    public List<TodoItemTask> findAll() {
         return todoItemTasksList;
     }
 
@@ -65,8 +75,8 @@ public class TodoItemTaskDAOCollection implements TodoItemTaskDAO {
     }
 
     @Override
-    public void remove(int id) {
-        if (id == 0) throw new IllegalArgumentException("id is empty");
+    public void remove(Integer id) {
+        if (id == null) throw new IllegalArgumentException("id is empty");
         for (TodoItemTask todoItemTask : todoItemTasksList){
             if (todoItemTask.getId() == id){
                 todoItemTasksList.remove(todoItemTask);

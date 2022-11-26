@@ -1,8 +1,8 @@
-package org.example.Sequencer;
+package org.example.dao.impl.Sequencer;
 
 public class TodoItemTaskIdSequencer {
     //filed
-    private static int currentId;
+    private static int currentId = 10;
 
     //methods
     public static int nextId(){

@@ -4,15 +4,17 @@ import org.example.model.TodoItem;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 
-public interface TodoItemDAO {
-    TodoItem persist(TodoItem todoItem);
+public interface TodoItemDAO extends BaseDao<TodoItem> {
+
     TodoItem findById(int id);
-    Collection<TodoItem> findAll();
-    Collection<TodoItem> findAllByDoneStatus(boolean done);
-    Collection<TodoItem> findByTitleContains(String title);
-    Collection<TodoItem> findByPerson(int personId);
-    Collection<TodoItem> findByDeadlineBefore(LocalDate date);
-    Collection<TodoItem> findByDeadlineAfter(LocalDate date);
-    void remove(int id);
+
+    TodoItem findById(Integer id);
+    List<TodoItem> findAllByDoneStatus(boolean done);
+    List<TodoItem> findByTitleContains(String title);
+    List<TodoItem> findByPerson(int personId);
+    List<TodoItem> findByDeadlineBefore(LocalDate date);
+    List<TodoItem> findByDeadlineAfter(LocalDate date);
+
 }

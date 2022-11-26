@@ -1,6 +1,7 @@
-package org.example.dao;
+package org.example.dao.impl;
 
-import org.example.Sequencer.TodoItemIdSequencer;
+import org.example.dao.impl.Sequencer.TodoItemIdSequencer;
+import org.example.dao.TodoItemDAO;
 import org.example.model.TodoItem;
 
 import java.time.LocalDate;
@@ -11,12 +12,18 @@ public class TOdoItemDAOCollection implements TodoItemDAO {
     //field
     List<TodoItem> todoItemsList;
 
+    private static TOdoItemDAOCollection instance;
+
     //constructor
-    public TOdoItemDAOCollection(){
+    private TOdoItemDAOCollection(){
         //initialing ones call AppUserDaoCollection class
         todoItemsList = new ArrayList<>();
     }
 
+    public static  TOdoItemDAOCollection getInstance(){
+        if(instance == null) instance = new TOdoItemDAOCollection();
+        return instance;
+    }
     @Override
     public TodoItem persist(TodoItem todoItem) {
         if (todoItem == null) throw new IllegalArgumentException("todoItem is null");
@@ -37,12 +44,17 @@ public class TOdoItemDAOCollection implements TodoItemDAO {
     }
 
     @Override
-    public Collection<TodoItem> findAll() {
+    public List<TodoItem> findAll() {
        return todoItemsList;
     }
 
     @Override
-    public Collection<TodoItem> findAllByDoneStatus(boolean done) {
+    public TodoItem findById(Integer id) {
+        return null;
+    }
+
+    @Override
+    public List<TodoItem> findAllByDoneStatus(boolean done) {
        for (TodoItem todoItem : todoItemsList){
            if(todoItem.getDone()){
                List<TodoItem> filteredDoneStatus = new ArrayList<>();
@@ -54,7 +66,7 @@ public class TOdoItemDAOCollection implements TodoItemDAO {
     }
 
     @Override
-    public Collection<TodoItem> findByTitleContains(String title) {
+    public List<TodoItem> findByTitleContains(String title) {
         if (title == null) throw new IllegalArgumentException("title is null");
         for (TodoItem todoItem: todoItemsList){
             if(todoItem.getTitle().equalsIgnoreCase(title)){
@@ -68,7 +80,7 @@ public class TOdoItemDAOCollection implements TodoItemDAO {
     }
 
     @Override
-    public Collection<TodoItem> findByPerson(int personId) {
+    public List<TodoItem> findByPerson(int personId) {
        if (personId == 0) throw new IllegalArgumentException("person id is empty");
        for (TodoItem todoItem : todoItemsList){
            if(todoItem.getId() == personId){
@@ -81,7 +93,7 @@ public class TOdoItemDAOCollection implements TodoItemDAO {
     }
 
     @Override
-    public Collection<TodoItem> findByDeadlineBefore(LocalDate date) {
+    public List<TodoItem> findByDeadlineBefore(LocalDate date) {
         LocalDate today = LocalDate.now();
         if(date == null) throw new IllegalArgumentException("date is null");
         for(TodoItem todoItem : todoItemsList){
@@ -96,7 +108,7 @@ public class TOdoItemDAOCollection implements TodoItemDAO {
     }
 
     @Override
-    public Collection<TodoItem> findByDeadlineAfter(LocalDate date) {
+    public List<TodoItem> findByDeadlineAfter(LocalDate date) {
         LocalDate today = LocalDate.now();
         if (date == null) throw new IllegalArgumentException("date is null");
         for (TodoItem todoItem : todoItemsList){
@@ -111,8 +123,8 @@ public class TOdoItemDAOCollection implements TodoItemDAO {
     }
 
     @Override
-    public void remove(int id) {
-        if (id == 0) throw new IllegalArgumentException("id is empty");
+    public void remove(Integer id) {
+        if (id == null) throw new IllegalArgumentException("id is empty");
         for (TodoItem todoItem : todoItemsList){
             if(todoItem.getId() == id){
                 todoItemsList.remove(todoItem);

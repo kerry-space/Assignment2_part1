@@ -1,8 +1,8 @@
-package org.example.Sequencer;
+package org.example.dao.impl.Sequencer;
 
 public  class PersonIdSequencer {
     //filed
-    private static int currentId;
+    private static int currentId = 100;
 
     //methods
    public static int nextId(){

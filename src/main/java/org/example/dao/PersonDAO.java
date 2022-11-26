@@ -2,12 +2,16 @@ package org.example.dao;
 
 import org.example.model.Person;
 
-import java.util.ArrayList;
+import java.util.Optional;
 
-public interface PersonDAO {
-    Person persist(Person person);
-    Person findById(int id);
-    Person findByEmail(String email);
-    ArrayList<Person> findAll();
-    void remove(int id);
+public interface PersonDAO extends BaseDao<Person>{
+
+
+    Person findById(Integer id);
+
+    //optional class is utlil which checks if null or not
+
+
+
+    Optional<Person> findByEmail(String email);
 }
